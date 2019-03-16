@@ -50,10 +50,15 @@ def prepare_image(image: Image.Image) -> torch.Tensor:
     return image.to(device)  # 1xCxHxW tensor.
 
 
-def _encode_image_array(array: np.array):
+def _encode_image_array(array: np.array) -> str:
     success, encoded_image = cv2.imencode('.png', array)
     encoded_image_bytes = encoded_image.tobytes()
     return base64.b64encode(encoded_image_bytes).decode('utf-8')
+
+
+def _decode_image_array(encoded_image_str: str) -> np.array:
+    img_bytes = io.BytesIO(base64.b64decode(encoded_image_str))
+    return np.array(Image.open(img_bytes))
 
 
 @app.route("/predict", methods=["POST"])
