@@ -4,7 +4,22 @@ import ReactDOM from "react-dom";
 import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "../Components/Header.js";
 
+var months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+];
 class Prediction extends Component {
   constructor(props) {
     super(props);
@@ -20,12 +35,33 @@ class Prediction extends Component {
       maxValues: maximum,
       imgSrc: props.location.state.imageData
     };
-    console.log(props.location.state.imageData);
   }
+  saveEntry = () => {
+    var n = new Date();
+    var y = n.getFullYear() - 2000;
+    var m = n.getMonth();
+    var d = n.getDate();
+    var time = d + "-" + months[m] + "-" + y;
+    var entry = {
+      date: time,
+      percentage: this.state.maxValues[0].toFixed(2) * 100,
+      image: this.state.imgSrc
+    };
+    localStorage.setItem("Entry", JSON.stringify(entry));
+    var test = JSON.parse(localStorage.getItem("Entry"));
+    this.props.history.push({
+      pathname: "/SaveSelect",
+      search: "query=abc",
+      state: {
+        detail: entry
+      }
+    });
+  };
+
   pressed = type => {
     console.log(type);
     this.props.history.push({
-      pathname: "/Camera/ExtraInfo",
+      pathname: "/ExtraInfo",
       search: "query=abc",
       state: {
         detail: type
@@ -43,6 +79,7 @@ class Prediction extends Component {
           flexDirection: "column"
         }}
       >
+        <Header currentSpot={"Prediction"} />
         <img
           style={{
             marginTop: "20px",
@@ -51,15 +88,24 @@ class Prediction extends Component {
           }}
           src={this.state.imgSrc}
         />
-        <h2>{this.state.maxValues[0].toFixed(2) * 100}%</h2>
+        <h2 class="m-4">{this.state.maxValues[0].toFixed(2) * 100}%</h2>
         <div
           style={{
             direction: "flex",
             justifyContent: "center",
-            height: "100px"
+            alignItems: "center",
+            height: "400px"
           }}
         >
-          <div class="btn-group-vertical row">
+          <div
+            class="btn-group-vertical row"
+            style={{
+              direction: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "150px"
+            }}
+          >
             <Button
               class="btn btn-primary"
               style={{ backgroundColor: "#4c4c4c" }}
@@ -82,18 +128,29 @@ class Prediction extends Component {
               How were these results calculated
             </Button>
           </div>
-          <Link
-            to="/Camera"
-            class="row"
-            style={{
-              marginTop: "10px",
-              direction: "flex",
-              justifyContent: "center"
-            }}
-          >
-            <Button color="primary">Re-take</Button>
-          </Link>
-        </div>{" "}
+          <div class="btn-group row" role="group" aria-label="Basic example">
+            <button
+              type="button"
+              onClick={() => {
+                this.props.history.push({
+                  pathname: "/",
+                  search: "query=abc",
+                  state: {}
+                });
+              }}
+              class="btn btn-secondary"
+            >
+              Re-take
+            </button>
+            <button
+              type="button"
+              onClick={this.saveEntry}
+              class="btn btn-secondary"
+            >
+              Save Entry
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

@@ -8,28 +8,43 @@ import PhotoCapture from "../Components/PhotoCapture";
 import Cropper from "react-easy-crop";
 
 import "../App.css";
+
 class Camera extends Component {
+  getBase64(file, cb) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      cb(reader.result);
+    };
+    reader.onerror = function(error) {
+      console.log("Error: ", error);
+    };
+  }
   addPhoto = event => {
     const fd = new FormData();
     var imgSource = URL.createObjectURL(event.target.files[0]);
     this.setState({ imgSRC: imgSource });
 
     fd.append("image", event.target.files[0], event.target.files[0].name);
-    console.log(imgSource);
     var img = JSON.parse(localStorage.getItem("Image"));
     if (img != null) {
       this.setState({ imgSrc: img });
     }
-    localStorage.setItem("Image", JSON.stringify(imgSource));
-
+    var idCard = event.target.files[0];
+    let idCardBase64 = "";
+    console.log(Date());
+    this.getBase64(idCard, result => {
+      idCardBase64 = result;
+      localStorage.setItem("Image", JSON.stringify(result));
+      this.props.history.push({
+        pathname: "/Crop",
+        search: "query=abc",
+        state: {
+          detail: result
+        }
+      });
+    });
     //    this.uploadPhoto(fd, imgSource);
-    /*this.props.history.push({
-      pathname: "/Crop",
-      search: "query=abc",
-      state: {
-        detail: imgSource
-      }
-    });*/
   };
   uploadPhoto = (data, imgSource) => {
     fetch(
@@ -65,7 +80,6 @@ class Camera extends Component {
           src={this.state.imgSrc}
           style={{ width: "100px", height: "100px" }}
         />
-        <PhotoCapture uploadFunction={this.uploadPhoto} />
         <input
           id="inputFile"
           type="file"
