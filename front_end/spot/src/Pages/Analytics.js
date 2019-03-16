@@ -10,6 +10,15 @@ class Analytics extends Component {
       data: analyticsData
     };
   }
+  expandHandler = id => {
+    this.props.history.push({
+      pathname: "/MoleInfo",
+      search: "query=abc",
+      state: {
+        id: id
+      }
+    });
+  };
   render() {
     var previousUserData = JSON.parse(localStorage.getItem("Userdata"));
     var superArray = this.state.data;
@@ -21,6 +30,7 @@ class Analytics extends Component {
           status={item.status}
           location={item.location}
           date={item.date}
+          expandHandler={this.expandHandler}
         />
       ));
     } else {

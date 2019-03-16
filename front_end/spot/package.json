@@ -10,6 +10,7 @@
     "react-chartjs-2": "^2.7.4",
     "react-circular-progressbar": "^1.0.0",
     "react-dom": "^16.8.4",
+    "react-easy-chart": "^1.0.0",
     "react-easy-crop": "^1.8.3",
     "react-router": "^4.4.0",
     "react-router-dom": "^4.4.0",

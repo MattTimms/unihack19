@@ -4,7 +4,20 @@ import ReactDOM from "react-dom";
 import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+var months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+];
 class Prediction extends Component {
   constructor(props) {
     super(props);
@@ -23,10 +36,10 @@ class Prediction extends Component {
   }
   saveEntry = () => {
     var n = new Date();
-    var y = n.getFullYear();
-    var m = n.getMonth() + 1;
+    var y = n.getFullYear() - 2000;
+    var m = n.getMonth();
     var d = n.getDate();
-    var time = d + "/" + m + "/" + y;
+    var time = d + "-" + months[m] + "-" + y;
     var entry = {
       date: time,
       percentage: this.state.maxValues[0].toFixed(2) * 100,
