@@ -7,6 +7,10 @@ from torch.utils.data import Dataset
 from PIL import Image
 
 
+class DatasetNotFound(Exception):
+    pass
+
+
 class CustomDataset(Dataset):
     label_key = {
         'benign': 0,
@@ -14,7 +18,7 @@ class CustomDataset(Dataset):
         'other': 2,
     }
 
-    def __init__(self, root_dir: str, testing: bool=False):
+    def __init__(self, root_dir: str, testing: bool = False):
         self.root_dir = root_dir
         self.testing = testing
 
@@ -22,7 +26,7 @@ class CustomDataset(Dataset):
         self.dir_descript = os.path.join(root_dir, 'Descriptions')
 
         if not os.path.exists(self.dir_images) or not os.path.exists(self.dir_descript):
-            raise Exception(f"Cannot find Images/ or Descriptions/ in {root_dir}")  # todo custom exception
+            raise DatasetNotFound(f"Cannot find Images/ or Descriptions/ in {root_dir}")
 
         self.dataset_file_list = os.listdir(self.dir_descript)
         self._len = len(self.dataset_file_list)
@@ -38,7 +42,6 @@ class CustomDataset(Dataset):
         return self._len
 
     def __getitem__(self, idx):
-        # idx -= 1  # starting at 0 offset  # todo maybe not needed
         sample_name = self.dataset_file_list[idx]
 
         desc_path = os.path.join(self.dir_descript, sample_name)
