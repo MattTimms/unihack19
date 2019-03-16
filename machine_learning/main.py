@@ -73,8 +73,7 @@ def main(args: argparse.Namespace):
     scheduler = lr_scheduler.StepLR(optimiser, step_size=7, gamma=0.1)
 
     # Training
-    train_model(model, dataloader, args.niters, criterion, scheduler, optimiser, device, logger, args.outf)
-
+    train_model(model, dataloader, args.niters, criterion, scheduler, optimiser, device, logger, args.outf, len(dataset))
 
 
 if __name__ == '__main__':

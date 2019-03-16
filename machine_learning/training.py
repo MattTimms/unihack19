@@ -6,9 +6,8 @@ from tqdm import tqdm
 
 
 def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, scheduler, optimiser, device, logger,
-                outf):
+                outf, dataset_len):
     best_model_wts = model.state_dict()
-    dataset_len = len(data_loader)  # todo check value
     best_acc = 0.0
     model.train()
 
@@ -24,6 +23,8 @@ def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, s
 
             optimiser.zero_grad()  # zero parameter gradients (don't forget)
             outputs = model(images)
+            if isinstance(outputs, tuple):
+                outputs, _ = outputs
 
             # Calculate loss
             _, preds = torch.max(outputs.data, 1)  # idx of the max log-probability
@@ -34,16 +35,15 @@ def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, s
             optimiser.step()
 
             # Log metrics
-            losses += loss.data.item()
-            corrects += preds.cpu().eq(labels.cpu()).sum().item()
+            losses.append(loss.data.item())
+            corrects.append(preds.cpu().eq(labels.cpu()).sum().item())
 
-        epoch_loss = sum(loss) / dataset_len
+        epoch_loss = sum(losses) / dataset_len
         epoch_acc = sum(corrects) / dataset_len
 
         log_data = {
             'Loss': epoch_loss,
             'Accuracy': epoch_acc,
-            'lr': optimiser.param_groups[0]['lr']
         }
         logger.add_scalars("metrics", log_data, epoch)
 
@@ -52,5 +52,6 @@ def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, s
             best_model_wts = model.state_dict()
             torch.save(model.state_dict(), os.path.join(outf, 'weights.pth'))
 
+    finish_tm = time.time()
     model.load_state_dict(best_model_wts)
     return model
