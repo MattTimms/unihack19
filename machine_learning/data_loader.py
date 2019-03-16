@@ -66,5 +66,12 @@ if __name__ == '__main__':
     length = len(dataset)
 
     dataloader = torch.utils.data.DataLoader(dataset, shuffle=True)
-    item = next(iter(dataloader))
+    img, label = next(iter(dataloader))
+
+    from machine_learning.utils import unnormalise
+    import cv2
+    img_unnorm = unnormalise(img.squeeze(0))[:, : ,-1]  # don't forget about PIL - cv2 images data formatting
+    cv2.imshow("img", img_unnorm)
+    cv2.waitKey()
+
     print(1)
