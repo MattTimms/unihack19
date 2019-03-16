@@ -11,6 +11,7 @@ import torchvision.models as models
 from tensorboardX import SummaryWriter
 
 from machine_learning.data_loader import CustomDataset
+from machine_learning.training import train_model
 from machine_learning.utils import print_architecture
 
 # Argument parsing
@@ -27,13 +28,14 @@ parser.add_argument('--batch_size', type=int, default=32, help='input batch size
 
 
 def main(args: argparse.Namespace):
-    logger = SummaryWriter(args.outf)
-
     if args.eval:  # Testing
         pass # todo
     else:  # Training
         args.outf = os.path.join(args.outf, datetime.datetime.now().strftime('%Y%m%dT%H%M%S'))
         os.makedirs(args.outf)
+
+    # Initialise logger
+    logger = SummaryWriter(args.outf)
 
     # Import dataset
     dataset = CustomDataset(root_dir=args.dataroot, testing=bool(args.eval))
@@ -67,9 +69,11 @@ def main(args: argparse.Namespace):
 
     # Training parameters
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(list(filter(lambda p: p.requires_grad, model.parameters())), lr=0.001, momentum=0.9)
-    scheduler = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
+    optimiser = optim.SGD(list(filter(lambda p: p.requires_grad, model.parameters())), lr=0.001, momentum=0.9)
+    scheduler = lr_scheduler.StepLR(optimiser, step_size=7, gamma=0.1)
 
+    # Training
+    train_model(model, dataloader, args.niters, criterion, scheduler, optimiser, device, logger, args.outf)
 
 
 
