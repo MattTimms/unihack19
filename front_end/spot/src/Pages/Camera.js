@@ -16,14 +16,20 @@ class Camera extends Component {
 
     fd.append("image", event.target.files[0], event.target.files[0].name);
     console.log(imgSource);
+    var img = JSON.parse(localStorage.getItem("Image"));
+    if (img != null) {
+      this.setState({ imgSrc: img });
+    }
+    localStorage.setItem("Image", JSON.stringify(imgSource));
+
     //    this.uploadPhoto(fd, imgSource);
-    this.props.history.push({
+    /*this.props.history.push({
       pathname: "/Crop",
       search: "query=abc",
       state: {
         detail: imgSource
       }
-    });
+    });*/
   };
   uploadPhoto = (data, imgSource) => {
     fetch(
@@ -51,10 +57,14 @@ class Camera extends Component {
       });
     });
   };
-  state = {};
+  state = { imgSrc: null };
   render() {
     return (
       <div>
+        <image
+          src={this.state.imgSrc}
+          style={{ width: "100px", height: "100px" }}
+        />
         <PhotoCapture uploadFunction={this.uploadPhoto} />
         <input
           id="inputFile"
