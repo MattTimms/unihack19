@@ -5,31 +5,39 @@ import analyticsData from "../Data/analyticsData"
 import { Button } from 'reactstrap';
 
 class Analytics extends Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state = {
       data: analyticsData
     }
-    this.handleSave = this.handleSave.bind(this)
+    this.handleCreateNewEntry = this.handleCreateNewEntry.bind(this)
+    this.handleSaveToEntry = this.handleSaveToEntry.bind(this)
   }
 
-  handleSave(){
-    console.log("saved")
-    // localStorage.setitem("percentages", "[0.9, 0.8, 0.5, 0.4]")
-    // set new data attribute
+  handleCreateNewEntry(){
+    console.log("entry created")
+
+  }
+
+  handleSaveToEntry(){
+    console.log("saving to entry")
+
   }
 
   render() {
+    var date = new Date()
+    console.log("Date:", date.getDate())
+    console.log("Month:", date.getMonth() + 1)
 
     var todo = this.state.data.map(item => <SaveSelectCard id={item.id}
                                                       status={item.status}
                                                       location={item.location}
                                                       date={item.date}/>)
-    console.log(todo)
     return (
       <div>
         {todo}
-        <Button onClick={this.handleSave}>Create New Entry</Button>
+        <Button onClick={this.handleCreateNewEntry}>Create New Entry</Button>
+        <Button onClick={this.handleSaveToEntry}>Save To Existing</Button>
       </div>
     )
   }

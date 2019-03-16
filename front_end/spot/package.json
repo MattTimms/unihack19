@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chart.js": "^2.8.0",
     "grommet": "^2.5.5",
     "react": "^16.8.4",
     "react-chartjs-2": "^2.7.4",
