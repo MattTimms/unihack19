@@ -1,7 +1,6 @@
-matplotlib>=3.0.3
+flask>=1.0.2
+numpy>=1.15.1
 opencv-python>=4.0.0
 pillow>=5.4.1
-tensorboardX>=1.6
 torch>=1.0.0
 torchvision>=0.2.1
-tqdm>=4.31.1
