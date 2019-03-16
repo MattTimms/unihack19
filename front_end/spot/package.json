@@ -5,6 +5,7 @@
   "dependencies": {
     "grommet": "^2.5.5",
     "react": "^16.8.4",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
     "styled-components": "^4.1.3"

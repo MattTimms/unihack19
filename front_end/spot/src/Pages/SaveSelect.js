@@ -15,7 +15,7 @@ class Analytics extends Component {
 
   handleSave(){
     console.log("saved")
-    localstorage.setitem("percentages", "[0.9, 0.8, 0.5, 0.4]")
+    // localStorage.setitem("percentages", "[0.9, 0.8, 0.5, 0.4]")
     // set new data attribute
   }
 
