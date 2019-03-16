@@ -9,7 +9,7 @@ class Header extends Component {
   render() {
     return (
       <nav
-        class="navbar mb-0 x d-flex justify-content-center"
+        className="navbar mb-0 x d-flex justify-content-center"
         style={{
           background: "#689dfe",
           paddingBottom: "15px",

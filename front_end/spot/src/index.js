@@ -11,8 +11,11 @@ import Home from "./Pages/Home.js";
 import Analytics from "./Pages/Analytics.js";
 import Camera from "./Pages/Camera.js";
 import Prediction from "./Pages/Prediction.js";
+import ExtraInfo from "./Pages/ExtraInfo.js";
 //Importing Components
 import Header from "./Components/Header.js";
+import MoleInfo from "./Pages/MoleInfo";
+import Graph from "./Components/Graph";
 
 const main = (
   <Router style={{}}>
@@ -26,12 +29,14 @@ const main = (
       }}
     >
       <Header />
-      <div class="d-flex justify-content-center" />
+      <div className="d-flex justify-content-center" />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/Analytics" component={Analytics} />
         <Route path="/Camera/Prediction" component={Prediction} />
+        <Route path="/Camera/ExtraInfo" component={ExtraInfo} />
         <Route path="/Camera" component={Camera} />
+        <Route path="/MoleInfo" component={Graph} />
       </Switch>
     </div>
   </Router>
