@@ -46,6 +46,7 @@ def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, s
             'Accuracy': epoch_acc,
         }
         logger.add_scalars("metrics", log_data, epoch)
+        print("Loss: %2.3f\t Acc: %2.3f" % (epoch_loss, epoch_acc))
 
         if epoch_acc > best_acc:
             best_acc = epoch_acc

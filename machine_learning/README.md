@@ -1,6 +1,10 @@
 
 ### Dataset
-todo
+ISIC - the International Skin Imaging Collaboration 
+[[Learn More](https://www.isic-archive.com/#!/topWithHeader/tightContentTop/about/isicArchive)]
+[[Download](https://github.com/GalAvineri/ISIC-Archive-Downloader)]  
+HAM10000 dataset, a large collection of multi-source dermatoscopic images of common pigmented skin lesions [[Learn More](https://arxiv.org/abs/1803.10417)] 
+[[Download](https://www.kaggle.com/kmader/skin-cancer-mnist-ham10000)]
 
 ### TensorboardX 
 To view training session logs in UI. Open terminal in session's output folder; default located in 
