@@ -1,13 +1,19 @@
 import json
 import os
 
+import numpy as np
 import pandas as pd
 import torch
-import torchvision
 import torchvision.transforms as transforms
 from PIL import Image
 from torch.utils.data import Dataset
-import numpy as np
+
+STL10_TRAIN_LIST = [
+    ['train_X.bin', '918c2871b30a85fa023e0c44e0bee87f'],
+    ['train_y.bin', '5a34089d4802c674881badbb80307741'],
+    ['unlabeled_X.bin', '5242ba1fed5e4be9e1e742405eb56ca4']
+]
+
 
 class DatasetNotFound(Exception):
     pass
@@ -40,7 +46,11 @@ class CustomDataset(Dataset):
         if not os.path.exists(self.dir_images) or not os.path.exists(self.dir_descript):
             raise DatasetNotFound(f"Cannot find Images/ or Descriptions/ in {root_dir}")
 
-        self.dataset_file_list = np.array(os.listdir(self.dir_descript))
+        self.dir_stl = os.path.join(root_dir, './../stl10_binary')
+        self.stl_imgs = self._include_stl10(self.dir_stl)
+
+        self.dataset_file_list = np.concatenate([np.array(os.listdir(self.dir_descript)),
+                                                 [f'stl_{i}' for i in range(len(self.stl_imgs))]])
 
         # Partition dataset for training/testing
         self._len = len(self.dataset_file_list)
@@ -51,6 +61,15 @@ class CustomDataset(Dataset):
         self.dataset_file_list_train = self.dataset_file_list[mask]
         self._len_train, self._len_test = len(self.dataset_file_list_train), len(self.dataset_file_list_test)
 
+    def _include_stl10(self, dir_imgs):
+        path_to_data = os.path.join(dir_imgs, STL10_TRAIN_LIST[0][0])
+        with open(path_to_data, 'rb') as f:
+            # read whole file in uint8 chunks
+            everything = np.fromfile(f, dtype=np.uint8)
+            images = np.reshape(everything, (-1, 3, 96, 96))
+            images = np.transpose(images, (0, 1, 3, 2))
+        return images
+
     def __len__(self):
         return self._len_train if not self._testing else self._len_test
 
@@ -60,20 +79,26 @@ class CustomDataset(Dataset):
         else:
             sample_name = self.dataset_file_list_test[idx]
 
-        desc_path = os.path.join(self.dir_descript, sample_name)
-        img_path = os.path.join(self.dir_images, sample_name + '.jpeg')
-        if not os.path.exists(img_path):
-            img_path = os.path.join(self.dir_images, sample_name + '.png')
+        if 'stl' in sample_name:
+            idx = int(sample_name.split('_')[-1])
+            image = self.stl_imgs[idx]
+            image = Image.fromarray(image.transpose(1, 2, 0))
+            label = 2
+        else:
+            desc_path = os.path.join(self.dir_descript, sample_name)
+            img_path = os.path.join(self.dir_images, sample_name + '.jpeg')
+            if not os.path.exists(img_path):
+                img_path = os.path.join(self.dir_images, sample_name + '.png')
+            image = Image.open(img_path).convert('RGB')
 
-        image = Image.open(img_path).convert('RGB')
+            # Load meta
+            with open(desc_path, 'r') as stream:
+                meta = json.load(stream)
+            label_class = meta['meta']['clinical']['benign_malignant']
+            label = self.label_key[label_class]
+
         if self.transforms:
             image = self.transforms(image)
-
-        # Load meta
-        with open(desc_path, 'r') as stream:
-            meta = json.load(stream)
-        label_class = meta['meta']['clinical']['benign_malignant']
-        label = self.label_key[label_class]
 
         return image, label
 
@@ -148,8 +173,6 @@ class HamDataset(Dataset):
 
 
 if __name__ == '__main__':
-    # torchvision.datasets.STL10('./../data/isic-skin/', download=True)
-
     dir_path = os.path.dirname(os.path.realpath(__file__))
     root_dir = os.path.join(dir_path, './../../data/isic-skin/')
     dataset = CustomDataset(root_dir)
