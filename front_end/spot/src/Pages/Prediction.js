@@ -24,16 +24,19 @@ class Prediction extends Component {
   constructor(props) {
     super(props);
     var maximum = [0, null];
+    var malignant = 0;
     var confidences = props.location.state.detail;
     Object.keys(confidences).forEach(function(key) {
       if (confidences[key] > maximum[0]) {
         maximum[0] = confidences[key];
         maximum[1] = key;
       }
+      malignant = confidences["malignant"];
     });
     this.state = {
       maxValues: maximum,
-      imgSrc: props.location.state.imageData
+      imgSrc: props.location.state.imageData,
+      malig: malignant
     };
   }
   saveEntry = () => {
@@ -44,7 +47,7 @@ class Prediction extends Component {
     var time = d + "-" + months[m] + "-" + y;
     var entry = {
       date: time,
-      percentage: this.state.maxValues[0].toFixed(2) * 100,
+      percentage: this.state.malig.toFixed(2) * 100,
       image: this.state.imgSrc
     };
     localStorage.setItem("Entry", JSON.stringify(entry));
