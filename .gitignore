@@ -12,7 +12,8 @@ yarn-debug.log*
 yarn-error.log*
 /.changelog
 .npm/
+package.json
+package-lock.json
 machine_learning/saved/
 __pycache__/
 
-*.jpg
