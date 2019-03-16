@@ -61,7 +61,7 @@ class Home extends Component {
           </Jumbotron>
         </div>
 
-        <div class="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
           <CircularProgressbar
             percentage={percentage}
             text={`${percentage}%`}
@@ -83,18 +83,18 @@ class Home extends Component {
           />
         </div>
 
-        <div id="footer" class="d-flex justify-content-left">
+        <div id="footer" className="d-flex justify-content-left">
           <div id="c1">
             <Link to="Analytics">
               <Button color="primary" size="lg">
-                <i class="fas fa-chart-line fa-3x" />
+                <i className="fas fa-chart-line fa-3x" />
               </Button>
             </Link>
           </div>
           <div id="c2">
-            <label for="inputFile" className="d-flex justify-content-center">
-              <div class="btn btn-danger">
-                <i class="fas fa-camera fa-3x" />
+            <label htmlFor="inputFile" className="d-flex justify-content-center">
+              <div className="btn btn-danger">
+                <i className="fas fa-camera fa-3x" />
               </div>
             </label>
           </div>
@@ -102,7 +102,7 @@ class Home extends Component {
           <div id="c3">
             <Link to="Self Care">
               <Button color="warning" size="lg">
-                <i class="fas fa-notes-medical fa-3x" />
+                <i className="fas fa-notes-medical fa-3x" />
               </Button>
             </Link>
           </div>
