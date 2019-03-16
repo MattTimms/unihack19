@@ -27,6 +27,8 @@ parser.add_argument('--batch_size', type=int, default=32, help='input batch size
 
 
 def main(args: argparse.Namespace):
+    logger = SummaryWriter(args.outf)
+
     if args.eval:  # Testing
         pass # todo
     else:  # Training
@@ -62,6 +64,11 @@ def main(args: argparse.Namespace):
     device = torch.device("cuda:0") if args.cuda else torch.device("cpu")
     print("Device type:", device)
     model.to(device)
+
+    # Training parameters
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.SGD(list(filter(lambda p: p.requires_grad, model.parameters())), lr=0.001, momentum=0.9)
+    scheduler = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
 
 
