@@ -4,14 +4,13 @@ import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
-import logo from "../img/logo.png"
+import logo from "../img/logo.png";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = { currentSpot: props.currentSpot };
   }
-
 
   render() {
     return (
@@ -24,7 +23,7 @@ class Header extends Component {
           width: "100%",
           position: "relative",
           top: "0px",
-          height: "50px"
+          height: "60px"
         }}
       >
         <Link to="/">
@@ -37,8 +36,9 @@ class Header extends Component {
           >
             Home
           </Button>*/}
-          <h2><img src={logo} style={{width:"50px",
-                                      paddingBottom: "15px"}}/></h2>
+          <h2>
+            <img src={logo} style={{ width: "50px", paddingBottom: "15px" }} />
+          </h2>
           <h2
             style={{
               position: "absolute",
@@ -47,10 +47,9 @@ class Header extends Component {
               color: "#000000"
             }}
           >
-            <p style={{fontWeight: "bold"}}>{this.state.currentSpot}</p>
+            <p style={{ fontWeight: "bold" }}>{this.state.currentSpot}</p>
           </h2>
         </Link>
-
       </nav>
     );
   }
