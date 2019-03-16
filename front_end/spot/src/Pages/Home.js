@@ -52,10 +52,10 @@ class Home extends Component {
   };
   renderPage = () => {
     return (
-      <div>
+      <div style={{backgroundColor: "white"}}>
         <Header currentSpot={"Home"} />
         <div>
-          <Jumbotron fluid>
+          <Jumbotron fluid style={{backgroundColor: "white"}}>
             <Container fluid>
               <h1 className="display-2">Hello</h1>
               <h1 className="display-2">Emma,</h1>
