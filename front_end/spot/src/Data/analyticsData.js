@@ -27,6 +27,6 @@ const analyticsData = [
         date: "August 15",
         entries: []
     }
-]
+];
 
-export default analyticsData
+export default analyticsData;
