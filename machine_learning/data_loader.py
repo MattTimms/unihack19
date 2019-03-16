@@ -3,7 +3,7 @@ import os
 
 import pandas as pd
 import torch
-# import torchvision
+import torchvision
 import torchvision.transforms as transforms
 from PIL import Image
 from torch.utils.data import Dataset
@@ -17,7 +17,7 @@ class CustomDataset(Dataset):
     label_key = {
         'benign': 0,
         'malignant': 1,
-        'other': 2,  # todo there is no other...
+        'other': 2,  # todo there is no other... yet
     }
     n_classes = len(label_key)
     partition_ratio = 0.95  # factor of dataset reserved for training
@@ -34,7 +34,7 @@ class CustomDataset(Dataset):
         self.root_dir = root_dir
         self._testing = testing
 
-        self.dir_images = os.path.join(root_dir, 'Images')
+        self.dir_images = os.path.join(root_dir, 'Images_small')  # note: using small imgs made from scripts/rescale...
         self.dir_descript = os.path.join(root_dir, 'Descriptions')
 
         if not os.path.exists(self.dir_images) or not os.path.exists(self.dir_descript):
@@ -147,10 +147,9 @@ class HamDataset(Dataset):
         return image, label
 
 
-# torchvision.datasets.stl10()
-
-
 if __name__ == '__main__':
+    # torchvision.datasets.STL10('./../data/isic-skin/', download=True)
+
     dir_path = os.path.dirname(os.path.realpath(__file__))
     root_dir = os.path.join(dir_path, './../../data/isic-skin/')
     dataset = CustomDataset(root_dir)
