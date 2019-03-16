@@ -11,7 +11,7 @@ def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, s
     best_acc = 0.0
     model.train()
 
-    start_tim = time.time()
+    start_tm = time.time()
     for epoch in range(n_epochs):
         scheduler.step()
 
@@ -54,5 +54,7 @@ def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, s
             torch.save(model.state_dict(), os.path.join(outf, 'weights.pth'))
 
     finish_tm = time.time()
+    print("Ttl time: %.2f\n"
+          "Loss: %2.3f\t Acc: %2.3f" % ((finish_tm - start_tm), epoch_loss, epoch_acc))
     model.load_state_dict(best_model_wts)
     return model

@@ -12,6 +12,9 @@ from torch.nn import functional as F
 
 from machine_learning.data_loader import CustomDataset
 
+HOST = '127.0.0.1'
+PORT = 5000
+
 app = flask.Flask(__name__)
 model = None
 use_gpu = True and torch.cuda.is_available()
@@ -35,8 +38,11 @@ def load_model():
     num_ftrs = model.fc.in_features
     model.fc = nn.Linear(num_ftrs, n_classes)
 
+    # Load state of model
     # model.load_state_dict(torch.load('model/weights.pth', map_location=device))  # todo get weights
     model.eval()
+
+    # Cast to CPU/GPU
     model.to(device)
 
 
@@ -98,4 +104,4 @@ if __name__ == '__main__':
     print("Loading PyTorch model and Flask starting server ..."
           "Please wait until server has fully started")
     load_model()
-    app.run()
+    app.run(host=HOST, port=PORT)

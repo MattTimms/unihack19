@@ -18,6 +18,7 @@ class CustomDataset(Dataset):
         'malignant': 1,
         'other': 2,  # todo there is no other...
     }
+    n_classes = len(label_key)
 
     # Specific to use of the InceptionV3 model architecture
     transforms = transforms.Compose([
@@ -62,10 +63,6 @@ class CustomDataset(Dataset):
         label = self.label_key[label_class]
 
         return image, label
-
-    @property
-    def n_classes(self):
-        return len(self.label_key)
 
 
 class HamDataset(Dataset):
