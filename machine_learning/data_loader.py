@@ -7,8 +7,13 @@ from torch.utils.data import Dataset
 from PIL import Image
 
 
-
 class CustomDataset(Dataset):
+    label_key = {
+        'benign': 0,
+        'malignant': 1,
+        'other': 2,
+    }
+
     def __init__(self, root_dir: str, testing: bool=False):
         self.root_dir = root_dir
         self.testing = testing
@@ -19,7 +24,7 @@ class CustomDataset(Dataset):
         if not os.path.exists(self.dir_images) or not os.path.exists(self.dir_descript):
             raise Exception(f"Cannot find Images/ or Descriptions/ in {root_dir}")  # todo custom exception
 
-        self.dataset_file_list = os.listdir(self.dir_images)
+        self.dataset_file_list = os.listdir(self.dir_descript)
         self._len = len(self.dataset_file_list)
 
         self.transforms = transforms.Compose([
@@ -33,22 +38,25 @@ class CustomDataset(Dataset):
         return self._len
 
     def __getitem__(self, idx):
+        # idx -= 1  # starting at 0 offset  # todo maybe not needed
         sample_name = self.dataset_file_list[idx]
 
         desc_path = os.path.join(self.dir_descript, sample_name)
-        img_path = os.path.join(self.dir_images, sample_name, '.jpeg')
+        img_path = os.path.join(self.dir_images, sample_name + '.jpeg')
         if not os.path.exists(img_path):
-            img_path = os.path.join(self.dir_images, sample_name, '.png')
+            img_path = os.path.join(self.dir_images, sample_name + '.png')
 
         image = Image.open(img_path).convert('RGB')
-        if self.transform:
-            image = self.transform(image)
+        if self.transforms:
+            image = self.transforms(image)
 
         # Load meta
         with open(desc_path, 'r') as stream:
-            meta = json.load(desc_path)
+            meta = json.load(stream)
+        label_class = meta['meta']['clinical']['benign_malignant']
+        label = self.label_key[label_class]
 
-        return image, meta
+        return image, label
 
 
 if __name__ == '__main__':
@@ -56,5 +64,7 @@ if __name__ == '__main__':
     root_dir = os.path.join(dir_path, './../../data/isic-skin/')
     dataset = CustomDataset(root_dir)
     length = len(dataset)
-    item = next(dataset)
+
+    dataloader = torch.utils.data.DataLoader(dataset, shuffle=True)
+    item = next(iter(dataloader))
     print(1)
