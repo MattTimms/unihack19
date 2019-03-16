@@ -15,6 +15,7 @@ class Camera extends Component {
     this.setState({ imgSRC: imgSource });
 
     fd.append("image", event.target.files[0], event.target.files[0].name);
+    console.log(imgSource);
     //    this.uploadPhoto(fd, imgSource);
     this.props.history.push({
       pathname: "/Crop",
