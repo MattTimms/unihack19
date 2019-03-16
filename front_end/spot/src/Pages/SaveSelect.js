@@ -54,7 +54,27 @@ class SaveSelect extends Component {
       <div>
         <Header currentSpot={"Save Entry"} />
         {todo}
-        <Button onClick={this.handleCreateNewEntry}>Create New Entry</Button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%"
+          }}
+        >
+          <Button
+            onClick={this.handleCreateNewEntry}
+            style={{
+              direction: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              top: "20px",
+              position: "relative"
+            }}
+          >
+            <i class="fas fa-plus" />
+          </Button>
+        </div>
       </div>
     );
   }

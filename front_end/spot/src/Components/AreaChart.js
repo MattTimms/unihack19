@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { AreaChart } from "react-easy-chart";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button
+} from "reactstrap";
 class AreaGraph extends Component {
   constructor(props) {
     super(props);
@@ -38,8 +49,8 @@ class AreaGraph extends Component {
             }
             tickTimeDisplayFormat={"%d %m"}
             interpolate={"cardinal"}
-            width={250}
-            height={250}
+            width={300}
+            height={320}
             yDomainRange={[0, 100]}
             data={[newData]}
             clickHandler={d => {
@@ -51,7 +62,7 @@ class AreaGraph extends Component {
                 }
               }
               this.setState({
-                picDisplay: `[${d.x}, ${d.y}]`,
+                picDisplay: `${d.x}, ${d.y}`,
                 imgSrc: imgSource
               });
             }}
@@ -59,16 +70,36 @@ class AreaGraph extends Component {
         </div>
         <div
           style={{
-            display: "inline-block",
+            display: "flex",
             verticalAlign: "top",
-            paddingLeft: "20px"
+            paddingLeft: "20px",
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
           {this.state.picDisplay ? (
-            <img
-              src={this.state.imgSrc}
-              style={{ height: "100px", width: "100px" }}
-            />
+            <Card>
+              <CardBody
+                style={{
+                  display: "flex",
+                  verticalAlign: "top",
+                  paddingLeft: "20px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column"
+                }}
+              >
+                <img
+                  class="card-img-top"
+                  alt="Card image cap"
+                  src={this.state.imgSrc}
+                  style={{ height: "150px", width: "150px", margin: "5px" }}
+                />
+                <div class="card-body">
+                  <p class="card-text">Date: {this.state.picDisplay}</p>
+                </div>
+              </CardBody>
+            </Card>
           ) : null}
         </div>
       </div>

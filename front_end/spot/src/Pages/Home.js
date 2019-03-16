@@ -103,11 +103,21 @@ class Home extends Component {
           </div>
 
           <div id="c3">
-            <Link to="Self Care">
-              <Button color="warning" size="lg">
-                <i class="fas fa-notes-medical fa-3x" />
-              </Button>
-            </Link>
+            <Button
+              onClick={() => {
+                this.props.history.push({
+                  pathname: "/ExtraInfo",
+                  search: "query=abc",
+                  state: {
+                    detail: "How"
+                  }
+                });
+              }}
+              color="warning"
+              size="lg"
+            >
+              <i class="fas fa-notes-medical fa-3x" />
+            </Button>
           </div>
         </div>
         <input

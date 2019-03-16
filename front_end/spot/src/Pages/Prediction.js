@@ -61,7 +61,7 @@ class Prediction extends Component {
   pressed = type => {
     console.log(type);
     this.props.history.push({
-      pathname: "/Camera/ExtraInfo",
+      pathname: "/ExtraInfo",
       search: "query=abc",
       state: {
         detail: type

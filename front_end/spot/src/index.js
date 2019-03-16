@@ -26,8 +26,7 @@ const main = (
         height: "100%",
         display: "flex",
         justifyContent: "center",
-        flexDirection: "column",
-        backgroundColor: "#ffd473"
+        flexDirection: "column"
       }}
     >
       <div style={{}}>
@@ -35,7 +34,7 @@ const main = (
           <Route exact path="/" component={Home} />
           <Route path="/Analytics" component={Analytics} />
           <Route path="/Camera/Prediction" component={Prediction} />
-          <Route path="/Camera/ExtraInfo" component={ExtraInfo} />
+          <Route path="/ExtraInfo" component={ExtraInfo} />
           <Route path="/Camera" component={Camera} />
           <Route path="/Crop" component={Crop} />
           <Route path="/NewEntry" component={NewEntry} />

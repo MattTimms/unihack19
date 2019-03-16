@@ -23,7 +23,6 @@ class AnalyticsCard extends Component {
     };
   }
   expand = () => {
-    console.log(this.state.id);
     this.props.expandHandler(this.state.id);
   };
   render() {
