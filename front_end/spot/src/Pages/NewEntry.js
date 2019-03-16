@@ -5,7 +5,7 @@ import analyticsData from "../Data/analyticsData";
 import { Button } from "reactstrap";
 
 import { TextInput, Select } from "grommet";
-
+import Header from "../Components/Header.js";
 class NewEntry extends Component {
   constructor(props) {
     super(props);
@@ -49,6 +49,7 @@ class NewEntry extends Component {
     //console.log(todo)
     return (
       <div>
+        <Header currentSpot={"New Mole"} />
         <h1>Enter Mole Location</h1>
         <TextInput
           value={this.state.location}

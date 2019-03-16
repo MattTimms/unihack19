@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import SaveSelectCard from "../Components/SaveSelectCard";
 import analyticsData from "../Data/analyticsData";
 import { Button } from "reactstrap";
+import Header from "../Components/Header.js";
 
 class SaveSelect extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class SaveSelect extends Component {
     }
     return (
       <div>
+        <Header currentSpot={"Save Entry"} />
         {todo}
         <Button onClick={this.handleCreateNewEntry}>Create New Entry</Button>
       </div>

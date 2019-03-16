@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import AnalyticsCard from "../Components/AnalyticsCard";
 import analyticsData from "../Data/analyticsData";
 import AreaGraph from "../Components/AreaChart";
-
+import Header from "../Components/Header.js";
 class MoleInfo extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +30,7 @@ class MoleInfo extends Component {
     }
     return (
       <div>
+        <Header currentSpot={"Tracking"} />
         <AreaGraph id={newId} entries={newEntries} />
       </div>
     );

@@ -7,6 +7,8 @@ import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Jumbotron, Button, Container } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import Header from "../Components/Header.js";
+
 const percentage = 66;
 class Home extends Component {
   state = {};
@@ -51,17 +53,18 @@ class Home extends Component {
   renderPage = () => {
     return (
       <div>
+        <Header currentSpot={"Home"} />
         <div>
           <Jumbotron fluid>
             <Container fluid>
-              <h1 className="display-4">Hello</h1>
-              <h1 className="display-4">Emma,</h1>
+              <h1 className="display-2">Hello</h1>
+              <h1 className="display-2">Emma,</h1>
               <p className="lead">What would you like to do today?</p>
             </Container>
           </Jumbotron>
         </div>
 
-        <div className="d-flex justify-content-center">
+        <div class="d-flex justify-content-center">
           <CircularProgressbar
             percentage={percentage}
             text={`${percentage}%`}
@@ -83,18 +86,18 @@ class Home extends Component {
           />
         </div>
 
-        <div id="footer" className="d-flex justify-content-left">
+        <div id="footer" class="d-flex justify-content-left">
           <div id="c1">
             <Link to="Analytics">
               <Button color="primary" size="lg">
-                <i className="fas fa-chart-line fa-3x" />
+                <i class="fas fa-chart-line fa-3x" />
               </Button>
             </Link>
           </div>
           <div id="c2">
-            <label htmlFor="inputFile" className="d-flex justify-content-center">
-              <div className="btn btn-danger">
-                <i className="fas fa-camera fa-3x" />
+            <label for="inputFile" className="d-flex justify-content-center">
+              <div class="btn btn-danger">
+                <i class="fas fa-camera fa-3x" />
               </div>
             </label>
           </div>
@@ -102,7 +105,7 @@ class Home extends Component {
           <div id="c3">
             <Link to="Self Care">
               <Button color="warning" size="lg">
-                <i className="fas fa-notes-medical fa-3x" />
+                <i class="fas fa-notes-medical fa-3x" />
               </Button>
             </Link>
           </div>

@@ -7,6 +7,9 @@ import "../App.css";
 import Cropper from "react-easy-crop";
 import ReactCrop from "react-image-crop";
 import getCroppedImg from "../Components/cropImage.js";
+
+import Header from "../Components/Header.js";
+
 class Crop extends Component {
   constructor(props) {
     super(props);
@@ -61,7 +64,7 @@ class Crop extends Component {
     var data = this.dataURItoBlob(newImg);
     fd.append("image", data);
     fetch(
-      "https://10.77.2.189:5000/predict",
+      "http://10.77.2.189:5000/predict",
       {
         method: "POST",
         body: fd
@@ -100,13 +103,16 @@ class Crop extends Component {
     //this.state.imgSrc = image;
     return (
       <div class="d-flex justify-content-center align-items-center column">
+        <Header currentSpot={"Photo Check"} />
         {this.state.imgSrc && (
           <div
             className="crop-container row"
             style={{
               backgroundColor: "white",
-              width: "300px",
-              height: "300px"
+              width: "600px",
+              height: "200px",
+              position: "absolute",
+              top: "20%"
             }}
           >
             <Cropper
@@ -125,9 +131,12 @@ class Crop extends Component {
         <Button
           onClick={this.sendCroppedImage}
           style={{
-            backgroundColor: "red",
+            backgroundColor: "#c63939",
             position: "absolute",
-            bottom: "20px"
+            bottom: "10%",
+            width: "80%",
+            height: "80px",
+            fontSize: "40px"
           }}
           class={"row"}
         >

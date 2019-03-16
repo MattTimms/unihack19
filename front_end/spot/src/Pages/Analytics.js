@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import AnalyticsCard from "../Components/AnalyticsCard";
 import analyticsData from "../Data/analyticsData";
+import Header from "../Components/Header.js";
 
 class Analytics extends Component {
   constructor() {
@@ -38,7 +39,12 @@ class Analytics extends Component {
     }
 
     console.log(todo);
-    return <div>{todo}</div>;
+    return (
+      <div>
+        <Header currentSpot={"Analytics"} />
+        {todo}
+      </div>
+    );
   }
 }
 
