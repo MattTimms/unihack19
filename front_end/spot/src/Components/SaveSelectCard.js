@@ -18,8 +18,9 @@ class SaveSelectCard extends Component {
     this.state = {
       status: props.status,
       id: props.id,
-      location: props.location,
-      date: props.date
+      location: props.loc,
+      date: props.date,
+      newEntry: props.newEntry
     };
   }
   save = () => {
@@ -28,6 +29,13 @@ class SaveSelectCard extends Component {
     if (previousUserData != null) {
       dataArray = previousUserData;
     }
+    for (var i in dataArray) {
+      if (dataArray[i]["id"] == this.state.id) {
+        console.log("test");
+        dataArray[i]["entries"].push(this.state.newEntry);
+      }
+    }
+    localStorage.setItem("Userdata", JSON.stringify(dataArray));
   };
   render() {
     console.log("This is the location:", this.state.location);

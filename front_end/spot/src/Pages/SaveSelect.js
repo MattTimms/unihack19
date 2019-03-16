@@ -41,8 +41,9 @@ class SaveSelect extends Component {
         <SaveSelectCard
           id={item.id}
           status={item.status}
-          location={item.location}
+          loc={item.location}
           date={item.date}
+          newEntry={this.state.newEntry}
         />
       ));
     } else {
