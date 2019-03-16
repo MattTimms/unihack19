@@ -6,7 +6,8 @@ from tqdm import tqdm
 
 
 def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, scheduler, optimiser, device, logger,
-                outf, dataset_len):
+                outf):
+    dataset_len = len(data_loader.dataset)
     best_model_wts = model.state_dict()
     best_acc = 0.0
     model.train()
@@ -53,7 +54,7 @@ def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, s
             best_model_wts = model.state_dict()
             torch.save(model.state_dict(), os.path.join(outf, 'weights.pth'))
 
-        eval(model, data_loader, criterion, device, logger, dataset_len, epoch)
+        eval(model, data_loader, criterion, device, logger, epoch)
 
     finish_tm = time.time()
     print("Ttl time: %.2f\n"
@@ -62,8 +63,9 @@ def train_model(model: torch.nn.Module, data_loader, n_epochs: int, criterion, s
     return model
 
 
-def eval(model: torch.nn.Module, data_loader, criterion, device, logger, dataset_len, epoch):
+def eval(model: torch.nn.Module, data_loader, criterion, device, logger, epoch):
     data_loader.dataset.eval()
+    dataset_len = len(data_loader.dataset)
     losses = []  # losses per batch
     corrects = []  # ttl num of correct predictions per batch
 
