@@ -15,8 +15,6 @@ import ExtraInfo from "./Pages/ExtraInfo.js";
 import Crop from "./Pages/Crop.js";
 //Importing Components
 import Header from "./Components/Header.js";
-import MoleInfo from "./Pages/MoleInfo";
-import Graph from "./Components/Graph";
 
 const main = (
   <Router style={{}}>
@@ -38,7 +36,6 @@ const main = (
         <Route path="/Camera/ExtraInfo" component={ExtraInfo} />
         <Route path="/Camera" component={Camera} />
         <Route path="/Crop" component={Crop} />
-        <Route path="/MoleInfo" component={Graph} />
       </Switch>
     </div>
   </Router>
