@@ -12,10 +12,9 @@ class Home extends Component {
 
   renderPage = () => {
     return (
-      <div class="d-flex justify-content-center column">
-        Home
+      <div class="d-flex justify-content-center">
         <Link to="Analytics">
-          <Button color="primary">Test</Button>
+          <Button color="primary">Analytics</Button>
         </Link>
       </div>
     );

@@ -5,10 +5,12 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 //Importing Pages
 import Home from "./Pages/Home.js";
 import Analytics from "./Pages/Analytics.js";
-
+import Camera from "./Pages/Camera.js";
+import Prediction from "./Pages/Prediction.js";
 //Importing Components
 import Header from "./Components/Header.js";
 
@@ -28,6 +30,8 @@ const main = (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/Analytics" component={Analytics} />
+        <Route path="/Camera/Prediction" component={Prediction} />
+        <Route path="/Camera" component={Camera} />
       </Switch>
     </div>
   </Router>
