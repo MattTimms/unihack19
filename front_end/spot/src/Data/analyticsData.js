@@ -1,22 +1,28 @@
 const analyticsData = [
     {
         id: 1,
-        checked: true,
+        status: true,
         location: "Upper Back",
-        dateOfLastPhoto: "August 15"
+        date: "August 15"
 
     },
     {
         id: 2,
-        checked: false,
+        status: false,
         location: "Lower Back",
-        dateOfLastPhoto: "August 15"
+        date: "August 15"
     },
     {
         id: 3,
-        checked: false,
+        status: false,
         location: "Right Hand",
-        dateOfLastPhoto: "August 15"
+        date: "August 15"
+    },
+    {
+        id: 4,
+        status: false,
+        location: "Right Hand",
+        date: "August 15"
     }
 ]
 
