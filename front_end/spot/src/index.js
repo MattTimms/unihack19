@@ -13,6 +13,8 @@ import Camera from "./Pages/Camera.js";
 import Prediction from "./Pages/Prediction.js";
 //Importing Components
 import Header from "./Components/Header.js";
+import MoleInfo from "./Pages/MoleInfo";
+import Graph from "./Components/Graph";
 
 const main = (
   <Router style={{}}>
@@ -32,6 +34,7 @@ const main = (
         <Route path="/Analytics" component={Analytics} />
         <Route path="/Camera/Prediction" component={Prediction} />
         <Route path="/Camera" component={Camera} />
+        <Route path="/MoleInfo" component={Graph} />
       </Switch>
     </div>
   </Router>
