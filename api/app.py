@@ -14,6 +14,10 @@ from machine_learning.data_loader import CustomDataset
 
 HOST = '127.0.0.1'
 PORT = 5000
+BRIGHTNESS_LIM_HI = 200
+BRIGHTNESS_LIM_LO = 100
+
+#
 
 app = flask.Flask(__name__)
 model = None
@@ -24,7 +28,6 @@ device = torch.device('cuda:0') if use_gpu else torch.device('cpu')
 label_key = CustomDataset.label_key
 n_classes = CustomDataset.n_classes
 transforms = CustomDataset.transforms
-
 
 def load_model():
     global model
@@ -67,9 +70,24 @@ def _decode_image_array(encoded_image_str: str) -> np.array:
     return np.array(Image.open(img_bytes))
 
 
+def _evaluate_brightness(image: Image) -> (int, str):
+    image = np.array(image)[:, :, ::-1]
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    hist = np.bincount(image.ravel(), minlength=256)
+    median = np.argmax(hist)
+    if median > BRIGHTNESS_LIM_HI:
+        return -1, "image brightness too high"
+    elif median < BRIGHTNESS_LIM_LO:
+        return -1, "image brightness too low"
+    return 0, ""
+
+
 @app.route("/predict", methods=["POST"])
 def predict():
-    data = {"success": False}
+    data = {
+        "success": False,
+        "error_msg": None,
+    }
 
     if flask.request.method == 'POST':
         if flask.request.files.get("image"):
@@ -81,21 +99,27 @@ def predict():
             # cv2.imshow("temp", temp0)
             # cv2.waitKey()
 
-            # Preprocess the image
-            image = prepare_image(image)
+            retval, msg = _evaluate_brightness(image)
+            if retval < 0:
+                data['error_msg'] = msg
+            else:
+                # Preprocess the image
+                image = prepare_image(image)
 
-            # temp1 = unnormalise(image.squeeze(0))[:, :, ::-1]
-            # cv2.imshow("temp1", temp1)
-            # cv2.waitKey()
-            # cv2.destroyAllWindows()
+                # temp1 = unnormalise(image.squeeze(0))[:, :, ::-1]
+                # cv2.imshow("temp1", temp1)
+                # cv2.waitKey()
+                # cv2.destroyAllWindows()
 
-            # forward pass
-            outputs = model(image)
-            outputs = F.softmax(outputs)
-            pred = outputs.squeeze(0).detach().cpu().numpy()
+                # forward pass
+                outputs = model(image)
+                outputs = F.softmax(outputs)
+                pred = outputs.squeeze(0).detach().cpu().numpy()
 
-            data['confidences'] = {key: pred[idx].item() for key, idx in label_key.items()}
-            data["success"] = True
+                data['confidences'] = {key: pred[idx].item() for key, idx in label_key.items()}
+                data["success"] = True
+        else:
+            data['error_msg'] = "No image parameter in body."
 
     return flask.jsonify(data)
 

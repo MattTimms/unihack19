@@ -14,3 +14,7 @@ yarn-error.log*
 .npm/
 machine_learning/saved/
 __pycache__/
+
+*.jpg
+
+*.pth
