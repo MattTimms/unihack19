@@ -15,9 +15,22 @@ class Camera extends Component {
     this.setState({ imgSRC: imgSource });
 
     fd.append("image", event.target.files[0], event.target.files[0].name);
-    this.uploadPhoto(fd, imgSource);
-  };
+    console.log(imgSource);
+    var img = JSON.parse(localStorage.getItem("Image"));
+    if (img != null) {
+      this.setState({ imgSrc: img });
+    }
+    localStorage.setItem("Image", JSON.stringify(imgSource));
 
+    //    this.uploadPhoto(fd, imgSource);
+    /*this.props.history.push({
+      pathname: "/Crop",
+      search: "query=abc",
+      state: {
+        detail: imgSource
+      }
+    });*/
+  };
   uploadPhoto = (data, imgSource) => {
     fetch(
       "https://10.77.2.189:5000/predict",
@@ -44,15 +57,20 @@ class Camera extends Component {
       });
     });
   };
-  state = {};
+  state = { imgSrc: null };
   render() {
     return (
       <div>
+        <image
+          src={this.state.imgSrc}
+          style={{ width: "100px", height: "100px" }}
+        />
         <PhotoCapture uploadFunction={this.uploadPhoto} />
         <input
           id="inputFile"
           type="file"
           accept="image/*"
+          capture
           hidden
           onChange={this.addPhoto}
         />
