@@ -17,6 +17,7 @@ class CustomDataset(Dataset):
         'malignant': 1,
         'other': 2,
     }
+    n_classes = len(label_key)
 
     def __init__(self, root_dir: str, testing: bool = False):
         self.root_dir = root_dir

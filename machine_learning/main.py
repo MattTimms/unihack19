@@ -11,7 +11,7 @@ import torchvision.models as models
 from tensorboardX import SummaryWriter
 
 from machine_learning.data_loader import CustomDataset
-
+from machine_learning.utils import print_architecture
 
 # Argument parsing
 parser = argparse.ArgumentParser()
@@ -34,7 +34,35 @@ def main(args: argparse.Namespace):
         os.makedirs(args.outf)
 
     # Import dataset
-    dataset = CustomDataset(dataset_root=args.dataroot, training=not args.eval)
+    dataset = CustomDataset(root_dir=args.dataroot, testing=bool(args.eval))
+    dataloader = torch.utils.data.DataLoader(dataset, batch_size=args.batch_size, shuffle=True,
+                                             num_workers=args.nworkers)
+
+    # Import model
+    model = models.inception_v3(pretrained=True)  # Load InceptionV3 network
+
+    for params in model.parameters():
+        params.requires_grad = False
+    ct = []
+    for name, child in model.named_children():
+        if "Conv2d_4a_3x3" in ct:
+            for params in child.parameters():
+                params.requires_grad = True
+        ct.append(name)
+
+    # Replace final layer
+    n_class = dataset.n_classes
+    num_ftrs = model.fc.in_features
+    model.fc = nn.Linear(num_ftrs, n_class)
+
+    print_architecture(model)  # dbg
+
+    # Specify CPU/GPU
+    args.cuda = args.cuda and torch.cuda.is_available()
+    device = torch.device("cuda:0") if args.cuda else torch.device("cpu")
+    print("Device type:", device)
+    model.to(device)
+
 
 
 

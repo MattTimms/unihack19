@@ -1,8 +1,8 @@
-import cv2
+import numpy as np
 import torch
 
 
-def unnormalise(tensor: torch.Tensor):
+def unnormalise(tensor: torch.Tensor) -> np.array:
     """ Converts normalised CxHxW tensor to HxWxC numpy image. """
     tensor = tensor.cpu().detach()
     min, max = float(tensor.min()), float(tensor.max())
@@ -12,3 +12,9 @@ def unnormalise(tensor: torch.Tensor):
     if image.shape[-1] == 1:
         image = image.squeeze()
     return image
+
+
+def print_architecture(model: torch.nn.Module):
+    for name, child in model.named_children():
+        for name2, params in child.named_parameters():
+            print(name, name2, 'trainable=%r' % params.requires_grad)
