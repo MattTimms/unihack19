@@ -22,6 +22,29 @@ class Prediction extends Component {
     };
     console.log(props.location.state.imageData);
   }
+  saveEntry = () => {
+    var n = new Date();
+    var y = n.getFullYear();
+    var m = n.getMonth() + 1;
+    var d = n.getDate();
+    var time = m + "/" + d + "/" + y;
+    var entry = {
+      date: time,
+      percentage: this.state.maxValues[0].toFixed(2) * 100,
+      image: this.state.imgSrc
+    };
+    localStorage.setItem("Entry", JSON.stringify(entry));
+    var test = JSON.parse(localStorage.getItem("Entry"));
+    console.log(test["image"]);
+    this.props.history.push({
+      pathname: "/Camera/ExtraInfo",
+      search: "query=abc",
+      state: {
+        detail: entry
+      }
+    });
+  };
+
   pressed = type => {
     console.log(type);
     this.props.history.push({
@@ -93,6 +116,9 @@ class Prediction extends Component {
           >
             <Button color="primary">Re-take</Button>
           </Link>
+          <Button onClick={this.saveEntry} color="primary">
+            Save Entry
+          </Button>
         </div>{" "}
       </div>
     );
