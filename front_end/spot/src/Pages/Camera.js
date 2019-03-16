@@ -5,7 +5,9 @@ import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Button } from "reactstrap";
 
 import PhotoCapture from "../Components/PhotoCapture";
+import Cropper from "react-easy-crop";
 
+import "../App.css";
 class Camera extends Component {
   addPhoto = event => {
     const fd = new FormData();
@@ -17,10 +19,18 @@ class Camera extends Component {
   };
 
   uploadPhoto = (data, imgSource) => {
-    fetch("http://127.0.0.1:5000/predict", {
-      method: "POST",
-      body: data
-    }).then(response => {
+    fetch(
+      "https://10.77.2.189:5000/predict",
+      {
+        method: "POST",
+        body: data
+      },
+      {
+        agent: new require("https").Agent({
+          rejectUnauthorized: false
+        })
+      }
+    ).then(response => {
       response.json().then(body => {
         console.log(body);
         this.props.history.push({
