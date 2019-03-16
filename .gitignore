@@ -14,3 +14,6 @@ yarn-error.log*
 .npm/
 package.json
 package-lock.json
+machine_learning/saved/
+__pycache__/
+

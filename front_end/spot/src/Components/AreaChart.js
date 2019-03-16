@@ -41,6 +41,7 @@ class AreaGraph extends Component {
             dataPoints
             xTicks={5}
             yTicks={3}
+            dotRadius={50}
             grid
             clickHandler={d =>
               this.setState({

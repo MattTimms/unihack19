@@ -29,7 +29,7 @@ class AnalyticsCard extends Component {
     console.log("This is the location:", this.state.location);
     return (
       <div>
-        <Card>
+        <Card class="bg-secondary mb-3">
           <CardBody>
             <CardSubtitle>Location: {this.state.location}</CardSubtitle>
             <CardText>Last Photo: {this.state.date}</CardText>
