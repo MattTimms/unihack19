@@ -105,20 +105,25 @@ class Prediction extends Component {
               How were these results calculated
             </Button>
           </div>
-          <Link
-            to="/Camera"
-            class="row"
-            style={{
-              marginTop: "10px",
-              direction: "flex",
-              justifyContent: "center"
-            }}
-          >
-            <Button color="primary">Re-take</Button>
-          </Link>
-          <Button onClick={this.saveEntry} color="primary">
-            Save Entry
-          </Button>
+          <div class="row" style={{ width: "100%" }}>
+            <Link
+              to="/"
+              style={{
+                marginTop: "10px",
+                direction: "flex",
+                justifyContent: "center"
+              }}
+            >
+              <Button color="primary">Re-take</Button>
+            </Link>
+            <Button
+              onClick={this.saveEntry}
+              color="primary"
+              style={{ position: "absolute", right: "20px" }}
+            >
+              Save Entry
+            </Button>
+          </div>
         </div>{" "}
       </div>
     );
