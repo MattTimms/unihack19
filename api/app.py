@@ -35,7 +35,7 @@ def load_model():
     num_ftrs = model.fc.in_features
     model.fc = nn.Linear(num_ftrs, n_classes)
 
-    model.load_state_dict(torch.load('model/weights.pth', map_location=device))
+    # model.load_state_dict(torch.load('model/weights.pth', map_location=device))  # todo get weights
     model.eval()
     model.to(device)
 
@@ -47,7 +47,7 @@ def prepare_image(image: Image.Image) -> torch.Tensor:
     image = transforms(image)
 
     image = image.unsqueeze(0)  # Add batch_size axis.
-    return image.to(device) # 1xCxHxW tensor.
+    return image.to(device)  # 1xCxHxW tensor.
 
 
 def _encode_image_array(array: np.array):
