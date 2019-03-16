@@ -4,7 +4,22 @@ import ReactDOM from "react-dom";
 import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "../Components/Header.js";
 
+var months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+];
 class Prediction extends Component {
   constructor(props) {
     super(props);
@@ -20,14 +35,13 @@ class Prediction extends Component {
       maxValues: maximum,
       imgSrc: props.location.state.imageData
     };
-    console.log(props.location.state.imageData);
   }
   saveEntry = () => {
     var n = new Date();
-    var y = n.getFullYear();
-    var m = n.getMonth() + 1;
+    var y = n.getFullYear() - 2000;
+    var m = n.getMonth();
     var d = n.getDate();
-    var time = m + "/" + d + "/" + y;
+    var time = d + "-" + months[m] + "-" + y;
     var entry = {
       date: time,
       percentage: this.state.maxValues[0].toFixed(2) * 100,
@@ -35,9 +49,8 @@ class Prediction extends Component {
     };
     localStorage.setItem("Entry", JSON.stringify(entry));
     var test = JSON.parse(localStorage.getItem("Entry"));
-    console.log(test["image"]);
     this.props.history.push({
-      pathname: "/Camera/ExtraInfo",
+      pathname: "/SaveSelect",
       search: "query=abc",
       state: {
         detail: entry
@@ -48,7 +61,7 @@ class Prediction extends Component {
   pressed = type => {
     console.log(type);
     this.props.history.push({
-      pathname: "/Camera/ExtraInfo",
+      pathname: "/ExtraInfo",
       search: "query=abc",
       state: {
         detail: type
@@ -66,6 +79,7 @@ class Prediction extends Component {
           flexDirection: "column"
         }}
       >
+        <Header currentSpot={"Prediction"} />
         <img
           style={{
             marginTop: "20px",
@@ -74,15 +88,24 @@ class Prediction extends Component {
           }}
           src={this.state.imgSrc}
         />
-        <h2>{this.state.maxValues[0].toFixed(2) * 100}%</h2>
+        <h2 class="m-4">{this.state.maxValues[0].toFixed(2) * 100}%</h2>
         <div
           style={{
             direction: "flex",
             justifyContent: "center",
-            height: "100px"
+            alignItems: "center",
+            height: "400px"
           }}
         >
-          <div class="btn-group-vertical row">
+          <div
+            class="btn-group-vertical row"
+            style={{
+              direction: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "150px"
+            }}
+          >
             <Button
               class="btn btn-primary"
               style={{ backgroundColor: "#4c4c4c" }}
@@ -105,26 +128,29 @@ class Prediction extends Component {
               How were these results calculated
             </Button>
           </div>
-          <div class="row" style={{ width: "100%" }}>
-            <Link
-              to="/"
-              style={{
-                marginTop: "10px",
-                direction: "flex",
-                justifyContent: "center"
+          <div class="btn-group row" role="group" aria-label="Basic example">
+            <button
+              type="button"
+              onClick={() => {
+                this.props.history.push({
+                  pathname: "/",
+                  search: "query=abc",
+                  state: {}
+                });
               }}
+              class="btn btn-secondary"
             >
-              <Button color="primary">Re-take</Button>
-            </Link>
-            <Button
+              Re-take
+            </button>
+            <button
+              type="button"
               onClick={this.saveEntry}
-              color="primary"
-              style={{ position: "absolute", right: "20px" }}
+              class="btn btn-secondary"
             >
               Save Entry
-            </Button>
+            </button>
           </div>
-        </div>{" "}
+        </div>
       </div>
     );
   }

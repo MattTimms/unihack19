@@ -34,6 +34,13 @@ body {
   position: relative;
 }
 
+.button-header {
+  -ms-transform: skewX(20deg);
+  -webkit-transform: skewX(20deg);
+  transform: skewX(20deg);
+  display: inline-block;
+}
+
 .controls {
   margin: auto;
   width: 50%;

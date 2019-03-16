@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-
+import Header from "../Components/Header.js";
 var types = {
-  Meaning: ["What does this mean?", "What!"],
-  Action: ["What can I do?", "Action!"],
+  Meaning: ["What does this mean?", "What!", "What?"],
+  Action: ["What can I do?", "Action!", "Change"],
   How: ["How have these results been calculated?", "How?"]
 };
 
@@ -26,6 +26,7 @@ class ExtraInfo extends Component {
           flexDirection: "column"
         }}
       >
+        <Header currentSpot={types[this.state.type][2]} />
         <h3 style={{ textAlign: "center" }}>{types[this.state.type][0]}</h3>
         <p>{types[this.state.type][1]}</p>
       </div>

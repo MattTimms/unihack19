@@ -16,10 +16,8 @@ import Crop from "./Pages/Crop.js";
 import NewEntry from "./Pages/NewEntry";
 import SaveSelect from "./Pages/SaveSelect";
 import MoleInfo from "./Pages/MoleInfo";
-
 //Importing Components
 import Header from "./Components/Header.js";
-import 
 const main = (
   <Router style={{}}>
     <div
@@ -31,20 +29,19 @@ const main = (
         flexDirection: "column"
       }}
     >
-      <Header />
-      <div className="d-flex justify-content-center" />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/Analytics" component={Analytics} />
-        <Route path="/Camera/Prediction" component={Prediction} />
-        <Route path="/Camera/ExtraInfo" component={ExtraInfo} />
-        <Route path="/Camera" component={Camera} />
-        <Route path="/Crop" component={Crop} />
-        <Route path="/"
-        <Route path="/NewEntry" component={NewEntry} />
-        <Route path="/SaveSelect" component={SaveSelect} />
-        <Route path="/MoleInfo" component={MoleInfo} />
-      </Switch>
+      <div style={{}}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/Analytics" component={Analytics} />
+          <Route path="/Camera/Prediction" component={Prediction} />
+          <Route path="/ExtraInfo" component={ExtraInfo} />
+          <Route path="/Camera" component={Camera} />
+          <Route path="/Crop" component={Crop} />
+          <Route path="/NewEntry" component={NewEntry} />
+          <Route path="/SaveSelect" component={SaveSelect} />
+          <Route path="/MoleInfo" component={MoleInfo} />
+        </Switch>
+      </div>
     </div>
   </Router>
 );

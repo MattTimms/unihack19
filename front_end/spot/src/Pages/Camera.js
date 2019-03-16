@@ -80,7 +80,6 @@ class Camera extends Component {
           src={this.state.imgSrc}
           style={{ width: "100px", height: "100px" }}
         />
-        <PhotoCapture uploadFunction={this.uploadPhoto} />
         <input
           id="inputFile"
           type="file"

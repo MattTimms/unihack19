@@ -1,59 +1,54 @@
-import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
-import {Line} from 'react-chartjs-2';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { Line } from "react-chartjs-2";
 
 const data = {
-    // All Values need to be from local storage!!!
+  // All Values need to be from local storage!!!
 
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ["January", "February"],
 
-    datasets: [
+  datasets: [
+    {
+      label: "My First dataset",
 
-        {
+      fill: false,
 
-            label: 'My First dataset',
+      lineTension: 0.1,
 
-            fill: false,
+      backgroundColor: "rgba(75,192,192,0.4)",
 
-            lineTension: 0.1,
+      borderColor: "rgba(75,192,192,1)",
 
-            backgroundColor: 'rgba(75,192,192,0.4)',
+      borderCapStyle: "butt",
 
-            borderColor: 'rgba(75,192,192,1)',
+      borderDash: [],
 
-            borderCapStyle: 'butt',
+      borderDashOffset: 0.0,
 
-            borderDash: [],
+      borderJoinStyle: "miter",
 
-            borderDashOffset: 0.0,
+      pointBorderColor: "rgba(75,192,192,1)",
 
-            borderJoinStyle: 'miter',
+      pointBackgroundColor: "#fff",
 
-            pointBorderColor: 'rgba(75,192,192,1)',
+      pointBorderWidth: 1,
 
-            pointBackgroundColor: '#fff',
+      pointHoverRadius: 5,
 
-            pointBorderWidth: 1,
+      pointHoverBackgroundColor: "rgba(75,192,192,1)",
 
-            pointHoverRadius: 5,
+      pointHoverBorderColor: "rgba(220,220,220,1)",
 
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+      pointHoverBorderWidth: 2,
 
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointRadius: 1,
 
-            pointHoverBorderWidth: 2,
+      pointHitRadius: 10,
 
-            pointRadius: 1,
-
-            pointHitRadius: 10,
-
-           // data: [10, 20, 30]
-            data: JSON.parse(localStorage.getItem("percentages"))
-
-        }
-
-    ]
-
+      data: [10, 20]
+      //data: JSON.parse(localStorage.getItem("percentages"))
+    }
+  ]
 };
 
 // const alertHello = () => {
@@ -62,32 +57,33 @@ const data = {
 // };
 
 class Graph extends Component {
-
-        alertHello = () => {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  alertHello = () => {
     //return <Redirect to='/Analytics'/>
-    this.props.history.push('/Home')
-};
+    this.props.history.push("/Home");
+  };
 
+  render() {
+    // for date in entries:
+    // dateArray.push(date)
+    // for confidences in entries:
+    // confArray.push(confidences)
+    return (
+      <div>
+        <h2>Line Example</h2>
 
-
-    render() {
-
-        return (
-
-            <div>
-
-                <h2>Line Example</h2>
-
-                <Line data={data} onElementsClick={elems => {
-                    this.alertHello();
-                }}/>
-
-            </div>
-
-        );
-
-    }
-
+        <Line
+          data={data}
+          onElementsClick={elems => {
+            this.alertHello();
+          }}
+        />
+      </div>
+    );
+  }
 }
 
 export default Graph;
