@@ -11,6 +11,8 @@ import Home from "./Pages/Home.js";
 import Analytics from "./Pages/Analytics.js";
 import Camera from "./Pages/Camera.js";
 import Prediction from "./Pages/Prediction.js";
+import SaveSelect from "./Pages/SaveSelect.js";
+import NewEntry from "./Pages/NewEntry.js";
 //Importing Components
 import Header from "./Components/Header.js";
 
@@ -32,6 +34,8 @@ const main = (
         <Route path="/Analytics" component={Analytics} />
         <Route path="/Camera/Prediction" component={Prediction} />
         <Route path="/Camera" component={Camera} />
+        <Route path="/SaveSelect" component={SaveSelect} />
+        <Route path="/NewEntry" component={NewEntry} />
       </Switch>
     </div>
   </Router>
