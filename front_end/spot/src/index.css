@@ -6,9 +6,35 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: blue
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  
+}
+  
+  
+#c1 {
+  width: 33%;
+  background-color: #007BFF
+  
+} 
+
+
+#c2 {
+  width: 33%;
+  background-color:#DB3545
+}
+
+#c3 {
+  width:35% ;
+  background-color:#FEC107
 }
