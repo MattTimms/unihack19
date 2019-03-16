@@ -4,7 +4,7 @@ import AnalyticsCard from "../Components/AnalyticsCard"
 import analyticsData from "../Data/analyticsData"
 import Graph from "../Components/Graph"
 
-class Analytics extends Component {
+class MoleInfo extends Component {
   constructor() {
     super()
     this.state = {
@@ -22,4 +22,4 @@ class Analytics extends Component {
 
 }
 
-export default Analytics;
+export default MoleInfo;

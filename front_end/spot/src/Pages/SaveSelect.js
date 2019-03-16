@@ -4,7 +4,7 @@ import SaveSelectCard from "../Components/SaveSelectCard"
 import analyticsData from "../Data/analyticsData"
 import { Button } from 'reactstrap';
 
-class Analytics extends Component {
+class SaveSelect extends Component {
   constructor(props) {
     super()
     this.state = {
@@ -44,4 +44,4 @@ class Analytics extends Component {
 
 }
 
-export default Analytics;
+export default SaveSelect;

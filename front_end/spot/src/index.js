@@ -13,6 +13,10 @@ import Camera from "./Pages/Camera.js";
 import Prediction from "./Pages/Prediction.js";
 import ExtraInfo from "./Pages/ExtraInfo.js";
 import Crop from "./Pages/Crop.js";
+import NewEntry from "./Pages/NewEntry";
+import SaveSelect from "./Pages/SaveSelect";
+import MoleInfo from "./Pages/MoleInfo";
+
 //Importing Components
 import Header from "./Components/Header.js";
 
@@ -36,6 +40,9 @@ const main = (
         <Route path="/Camera/ExtraInfo" component={ExtraInfo} />
         <Route path="/Camera" component={Camera} />
         <Route path="/Crop" component={Crop} />
+        <Route path="/NewEntry" component={NewEntry} />
+        <Route path="/SaveSelect" component={SaveSelect} />
+        <Route path="/MoleInfo" component={MoleInfo} />
       </Switch>
     </div>
   </Router>
