@@ -31,7 +31,7 @@ class PhotoCapture extends Component {
     var data = this.dataURItoBlob(dataUri);
     fd.append("image", data);
     //this.setState({ loading: true });
-    //this.props.uploadFunction(fd, dataUri);
+    this.props.uploadFunction(fd, dataUri);
   };
 
   render() {
@@ -39,17 +39,20 @@ class PhotoCapture extends Component {
       <div
         className="PhotoCapture"
         class="crop"
-        style={{ width: "50px", height: "50px", overflow: "hidden" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          overflow: "hidden"
+        }}
       >
         <Camera
-          isFullScreen={true}
           onTakePhoto={dataUri => {
             this.onTakePhoto(dataUri);
           }}
           idealFacingMode={FACING_MODES.ENVIRONMENT}
           isImageMirror={false}
-          isMaxResolution={true}
-          style={{ height: "10px", width: "10px" }}
+          isFullScreen={true}
+          style={{ height: "100%", width: "100%" }}
         />
       </div>
     );
