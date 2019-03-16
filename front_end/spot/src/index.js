@@ -12,6 +12,7 @@ import Analytics from "./Pages/Analytics.js";
 import Camera from "./Pages/Camera.js";
 import Prediction from "./Pages/Prediction.js";
 import ExtraInfo from "./Pages/ExtraInfo.js";
+import Crop from "./Pages/Crop.js";
 //Importing Components
 import Header from "./Components/Header.js";
 
@@ -34,6 +35,7 @@ const main = (
         <Route path="/Camera/Prediction" component={Prediction} />
         <Route path="/Camera/ExtraInfo" component={ExtraInfo} />
         <Route path="/Camera" component={Camera} />
+        <Route path="/Crop" component={Crop} />
       </Switch>
     </div>
   </Router>
