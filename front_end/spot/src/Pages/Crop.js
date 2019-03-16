@@ -76,12 +76,13 @@ class Crop extends Component {
       }
     ).then(response => {
       response.json().then(body => {
+        console.log("testing");
         console.log(body);
         this.props.history.push({
           pathname: "/Camera/Prediction",
           search: "query=abc",
           state: {
-            detail: body.confidences,
+            detail: body,
             imageData: newImg
           }
         });

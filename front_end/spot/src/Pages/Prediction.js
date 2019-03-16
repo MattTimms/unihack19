@@ -25,14 +25,22 @@ class Prediction extends Component {
     super(props);
     var maximum = [0, null];
     var malignant = 0;
-    var confidences = props.location.state.detail;
-    Object.keys(confidences).forEach(function(key) {
-      if (confidences[key] > maximum[0]) {
-        maximum[0] = confidences[key];
-        maximum[1] = key;
-      }
-      malignant = confidences["malignant"];
-    });
+    var dataArray = props.location.state.detail;
+    if (dataArray["success"] == true) {
+      var confidences = dataArray.confidences;
+      var malignant = 0;
+      Object.keys(confidences).forEach(function(key) {
+        if (confidences[key] > maximum[0]) {
+          maximum[0] = confidences[key];
+          maximum[1] = key;
+          malignant = confidences["malignant"];
+        }
+      });
+    } else {
+      maximum[1] = "other";
+      maximum[0] = "1";
+    }
+
     this.state = {
       maxValues: maximum,
       imgSrc: props.location.state.imageData,
@@ -71,7 +79,35 @@ class Prediction extends Component {
       }
     });
   };
-  render() {
+
+  render = () => {
+    var out = null;
+    console.log(this.state.maxValues[1]);
+    if (this.state.maxValues[1] == "benign") {
+      console.log("benign");
+      out = (
+        <p>
+          Your freckle appears similar to others that was evaluated as benign by
+          medical professionals
+        </p>
+      );
+    } else if (this.state.maxValues[1] == "malignant") {
+      console.log("malignant");
+      out = (
+        <p>
+          Your freckle appears {this.state.maxValues[0].toFixed(2) * 100}%
+          similar to other who sought out medical advice
+        </p>
+      );
+    } else {
+      console.log("other");
+      out = (
+        <p>
+          The image quality is too poor for the neural network to detect a
+          freckle. Please ensure the freckle is in frame and in focus.
+        </p>
+      );
+    }
     return (
       <div
         class="column"
@@ -91,7 +127,7 @@ class Prediction extends Component {
           }}
           src={this.state.imgSrc}
         />
-        <h2 class="m-4">{this.state.maxValues[0].toFixed(2) * 100}%</h2>
+        {out}
         <div
           style={{
             direction: "flex",
@@ -156,7 +192,7 @@ class Prediction extends Component {
         </div>
       </div>
     );
-  }
+  };
 }
 
 export default Prediction;
