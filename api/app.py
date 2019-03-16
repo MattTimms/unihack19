@@ -1,5 +1,7 @@
 import base64
 import io
+import os
+import sys
 
 import cv2
 import flask
@@ -10,11 +12,13 @@ import torchvision.models as models
 from PIL import Image
 from torch.nn import functional as F
 
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), './../'))
+
 from machine_learning.data_loader import CustomDataset
 
 HOST = '127.0.0.1'
 PORT = 5000
-BRIGHTNESS_LIM_HI = 200
+BRIGHTNESS_LIM_HI = 230
 BRIGHTNESS_LIM_LO = 100
 
 #
@@ -28,6 +32,7 @@ device = torch.device('cuda:0') if use_gpu else torch.device('cpu')
 label_key = CustomDataset.label_key
 n_classes = CustomDataset.n_classes
 transforms = CustomDataset.transforms
+
 
 def load_model():
     global model
@@ -75,9 +80,9 @@ def _evaluate_brightness(image: Image) -> (int, str):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     hist = np.bincount(image.ravel(), minlength=256)
     median = np.argmax(hist)
-    if median > BRIGHTNESS_LIM_HI:
-        return -1, "image brightness too high"
-    elif median < BRIGHTNESS_LIM_LO:
+    # if median > BRIGHTNESS_LIM_HI:
+    #     return -1, "image brightness too high"
+    if median < BRIGHTNESS_LIM_LO:
         return -1, "image brightness too low"
     return 0, ""
 
@@ -125,7 +130,7 @@ def predict():
 
 
 if __name__ == '__main__':
-    print("Loading PyTorch model and Flask starting server ..."
+    print("Loading PyTorch model and Flask starting server ...\n"
           "Please wait until server has fully started")
     load_model()
     app.run(host=HOST, port=PORT)
