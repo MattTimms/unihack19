@@ -47,7 +47,7 @@ def load_model():
     model.fc = nn.Linear(num_ftrs, n_classes)
 
     # Load state of model
-    # model.load_state_dict(torch.load('model/weights.pth', map_location=device))  # todo get weights
+    model.load_state_dict(torch.load('model/weights.pth', map_location=device))
     model.eval()
 
     # Cast to CPU/GPU

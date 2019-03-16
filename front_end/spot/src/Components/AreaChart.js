@@ -51,7 +51,7 @@ class AreaGraph extends Component {
             tickTimeDisplayFormat={"%d %m"}
             interpolate={"cardinal"}
             width={300}
-            height={320}
+            height={280}
             yDomainRange={[0, 100]}
             data={[newData]}
             clickHandler={d => {
@@ -79,7 +79,7 @@ class AreaGraph extends Component {
           }}
         >
           {this.state.picDisplay ? (
-            <Card>
+            <Card style={{ border: "4px solid #e5e5e5" }}>
               <CardBody
                 style={{
                   display: "flex",
@@ -94,7 +94,7 @@ class AreaGraph extends Component {
                   class="card-img-top"
                   alt="Card image cap"
                   src={this.state.imgSrc}
-                  style={{ height: "150px", width: "150px", margin: "5px" }}
+                  style={{ height: "80px", width: "80px", margin: "5px" }}
                 />
                 <div class="card-body">
                   <p class="card-text">Date: {this.state.picDisplay}</p>

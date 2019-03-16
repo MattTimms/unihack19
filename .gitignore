@@ -16,4 +16,5 @@ package.json
 package-lock.json
 machine_learning/saved/
 __pycache__/
+api/tests/*.jpeg
 
