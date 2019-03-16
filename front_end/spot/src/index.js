@@ -19,7 +19,6 @@ import MoleInfo from "./Pages/MoleInfo";
 
 //Importing Components
 import Header from "./Components/Header.js";
-import 
 const main = (
   <Router style={{}}>
     <div
@@ -40,7 +39,6 @@ const main = (
         <Route path="/Camera/ExtraInfo" component={ExtraInfo} />
         <Route path="/Camera" component={Camera} />
         <Route path="/Crop" component={Crop} />
-        <Route path="/"
         <Route path="/NewEntry" component={NewEntry} />
         <Route path="/SaveSelect" component={SaveSelect} />
         <Route path="/MoleInfo" component={MoleInfo} />

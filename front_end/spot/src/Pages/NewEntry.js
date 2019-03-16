@@ -1,41 +1,51 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import SaveSelectCard from "../Components/SaveSelectCard"
-import analyticsData from "../Data/analyticsData"
-import { Button } from 'reactstrap';
+import SaveSelectCard from "../Components/SaveSelectCard";
+import analyticsData from "../Data/analyticsData";
+import { Button } from "reactstrap";
 
-import { TextInput, Select } from 'grommet';
+import { TextInput, Select } from "grommet";
 
 class NewEntry extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props);
     this.state = {
       data: analyticsData,
       location: "",
-      month: "",
-      day: ""
+      entry: props.location.state.detail
+    };
+    this.handleSave = this.handleSave.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleSave(event) {
+    var previousUserData = JSON.parse(localStorage.getItem("Userdata"));
+    var dataArray = [];
+    if (previousUserData != null) {
+      dataArray = previousUserData;
     }
-    this.handleSave = this.handleSave.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    var newEntryArray = {
+      id: 5 + dataArray.length,
+      status: false,
+      location: this.state.location,
+      date: this.state.entry["date"],
+      entries: [this.state.entry]
+    };
+    dataArray.push(newEntryArray);
+    localStorage.setItem("Userdata", JSON.stringify(dataArray));
+    this.props.history.push({
+      pathname: "/Analytics",
+      search: "query=abc",
+      state: {}
+    });
   }
 
-  handleSave(event){
-    localStorage.setItem("")
-
-  }
-
-  handleChange(event){
-    const {name, value} = event.target
-    this.setState({ [name]: value })
-
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   render() {
-
-    var todo = this.state.data.map(item => <SaveSelectCard id={item.id}
-                                                      status={item.status}
-                                                      location={item.location}
-                                                      date={item.date}/>)
     //console.log(todo)
     return (
       <div>
@@ -47,11 +57,10 @@ class NewEntry extends Component {
           onChange={this.handleChange}
         />
 
-        <Button>Save</Button>
+        <Button onClick={this.handleSave}>Save</Button>
       </div>
-    )
+    );
   }
-
 }
 
 export default NewEntry;

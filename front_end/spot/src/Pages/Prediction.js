@@ -20,14 +20,13 @@ class Prediction extends Component {
       maxValues: maximum,
       imgSrc: props.location.state.imageData
     };
-    console.log(props.location.state.imageData);
   }
   saveEntry = () => {
     var n = new Date();
     var y = n.getFullYear();
     var m = n.getMonth() + 1;
     var d = n.getDate();
-    var time = m + "/" + d + "/" + y;
+    var time = d + "/" + m + "/" + y;
     var entry = {
       date: time,
       percentage: this.state.maxValues[0].toFixed(2) * 100,
@@ -35,9 +34,8 @@ class Prediction extends Component {
     };
     localStorage.setItem("Entry", JSON.stringify(entry));
     var test = JSON.parse(localStorage.getItem("Entry"));
-    console.log(test["image"]);
     this.props.history.push({
-      pathname: "/Camera/ExtraInfo",
+      pathname: "/SaveSelect",
       search: "query=abc",
       state: {
         detail: entry

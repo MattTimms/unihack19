@@ -11,14 +11,22 @@ class Analytics extends Component {
     };
   }
   render() {
-    var todo = this.state.data.map(item => (
-      <AnalyticsCard
-        id={item.id}
-        status={item.status}
-        location={item.location}
-        date={item.date}
-      />
-    ));
+    var previousUserData = JSON.parse(localStorage.getItem("Userdata"));
+    var superArray = this.state.data;
+    var todo = null;
+    if (previousUserData != null) {
+      todo = previousUserData.map(item => (
+        <AnalyticsCard
+          id={item.id}
+          status={item.status}
+          location={item.location}
+          date={item.date}
+        />
+      ));
+    } else {
+      todo = "No moles saved";
+    }
+
     console.log(todo);
     return <div>{todo}</div>;
   }
