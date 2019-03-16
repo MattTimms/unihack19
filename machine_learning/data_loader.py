@@ -16,7 +16,7 @@ class CustomDataset(Dataset):
     label_key = {
         'benign': 0,
         'malignant': 1,
-        'other': 2,
+        'other': 2,  # todo there is no other...
     }
 
     # Specific to use of the InceptionV3 model architecture
@@ -78,6 +78,7 @@ class HamDataset(Dataset):
         'vasc': ('Vascular lesions', 5),
         'df': ('Dermatofibroma', 6),
     }
+    n_classes = len(label_key)
 
     # Specific to use of the InceptionV3 model architecture
     transforms = transforms.Compose([
