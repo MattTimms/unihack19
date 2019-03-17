@@ -45,27 +45,28 @@ class ExtraInfo extends Component {
             body
             inverse
             style={{
-              backgroundColor: "red",
+              backgroundColor: "#8e4a4a",
               borderColor: "red",
               borderColor: "red"
             }}
           >
             <CardTitle>How to spot a malignant mole?</CardTitle>
             <CardText>
-              · Changes in size (getting larger) · A change in shape (especially
-              with irregular edges) · Colour changes (especially getting darker
-              or exhibiting multiple shades) · A loss of symmetry (common moles
-              will be perfectly round or oval and are usually symmetrical)
+              · Changes in size (getting larger) <br />· A change in shape
+              (especially with irregular edges) ·<br /> Colour changes
+              (especially getting darker or exhibiting multiple shades) ·<br />A
+              loss of symmetry (common moles will be perfectly round or oval and
+              are usually symmetrical)
             </CardText>
           </Card>
         </div>
         <div id="card2">
-          <Card body inverse color="success">
+          <Card body inverse style={{ backgroundColor: "#8e4a4a" }}>
             <CardTitle>How to spot a benign mole?</CardTitle>
             <CardText>
-              · Have neat edges, · Are smooth or dome-shaped, · Are around ¼
-              inch (6 mm) in diameter, · Preserve the same shape, size or colour
-              over time.
+              · Have neat edges, <br />· Are smooth or dome-shaped, <br /> · Are
+              around ¼ inch (6 mm) in diameter, <br />· Preserve the same shape,
+              size or colour over time.
             </CardText>
           </Card>
         </div>
