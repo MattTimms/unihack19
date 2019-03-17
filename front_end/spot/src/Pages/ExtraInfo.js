@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { Card, Button, CardTitle, CardText } from "reactstrap";
 import Header from "../Components/Header.js";
 var types = {
   Meaning: ["What does this mean?", "What!", "What?"],
@@ -25,18 +26,49 @@ class ExtraInfo extends Component {
   state = {};
   render() {
     return (
-      <div
-        class="column"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column"
-        }}
-      >
-        <Header currentSpot={types[this.state.type][2]} />
-        <h3 style={{ textAlign: "center" }}>{types[this.state.type][0]}</h3>
-        <p style={{ margin: "7px" }}>{types[this.state.type][1]}</p>
+      <div>
+        <div
+          class="column"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column"
+          }}
+        >
+          <Header currentSpot={types[this.state.type][2]} />
+          <h3 style={{ textAlign: "center" }}>{types[this.state.type][0]}</h3>
+          <p style={{ margin: "7px" }}>{types[this.state.type][1]}</p>
+        </div>
+        <div id="card1">
+          <Card
+            body
+            inverse
+            style={{
+              backgroundColor: "red",
+              borderColor: "red",
+              borderColor: "red"
+            }}
+          >
+            <CardTitle>How to spot a malignant mole?</CardTitle>
+            <CardText>
+              · Changes in size (getting larger) · A change in shape (especially
+              with irregular edges) · Colour changes (especially getting darker
+              or exhibiting multiple shades) · A loss of symmetry (common moles
+              will be perfectly round or oval and are usually symmetrical)
+            </CardText>
+          </Card>
+        </div>
+        <div id="card2">
+          <Card body inverse color="success">
+            <CardTitle>How to spot a benign mole?</CardTitle>
+            <CardText>
+              · Have neat edges, · Are smooth or dome-shaped, · Are around ¼
+              inch (6 mm) in diameter, · Preserve the same shape, size or colour
+              over time.
+            </CardText>
+          </Card>
+        </div>
       </div>
     );
   }

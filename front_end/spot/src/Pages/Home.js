@@ -10,8 +10,8 @@ import camera from "../img/camera-outline.svg";
 
 import Header from "../Components/Header.js";
 
-const days = 2;
-const required = 3;
+const days = 0;
+const required = 14;
 const percentage = Math.round((2 / 3) * 100);
 
 class Home extends Component {
@@ -59,13 +59,12 @@ class Home extends Component {
       <div style={{ backgroundColor: "white" }}>
         <Header currentSpot={"Home"} />
         <div>
-          <Jumbotron fluid style={{ backgroundColor: "white" }}>
-            <Container fluid>
-              <h1 className="display-2">Hello</h1>
-              <h1 className="display-2">Emma,</h1>
-              <p className="lead">What would you like to do today?</p>
-            </Container>
-          </Jumbotron>
+          <h1 className="display-2" style={{ fontSize: "73px" }}>
+            Hello
+          </h1>
+          <h1 className="display-2" style={{ fontSize: "73px" }}>
+            Emma,
+          </h1>
         </div>
 
         <div class="d-flex justify-content-center">
@@ -100,7 +99,7 @@ class Home extends Component {
               textAlign: "center"
             }}
           >
-            Checkups Left
+            Days since self-check
           </h3>
         </div>
 
