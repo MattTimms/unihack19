@@ -14,12 +14,14 @@ class MoleInfo extends Component {
   }
   render() {
     var previousUserData = JSON.parse(localStorage.getItem("Userdata"));
-    var dataArray = [];
+    var dataArray = analyticsData;
     var newId = null;
     var entries = [];
     if (previousUserData != null) {
-      dataArray = previousUserData;
+      dataArray = dataArray.concat(previousUserData);
     }
+    console.log(dataArray);
+    console.log(dataArray[0]["id"]);
     console.log(this.state.id);
     for (var i in dataArray) {
       if (dataArray[i]["id"] == this.state.id) {

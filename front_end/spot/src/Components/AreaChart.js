@@ -63,7 +63,7 @@ class AreaGraph extends Component {
                 }
               }
               this.setState({
-                picDisplay: `${d.x}, ${d.y}`,
+                picDisplay: `${d.x}, ${d.y}%`,
                 imgSrc: imgSource
               });
             }}

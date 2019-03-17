@@ -22,21 +22,21 @@ class Analytics extends Component {
   };
   render() {
     var previousUserData = JSON.parse(localStorage.getItem("Userdata"));
-    var superArray = this.state.data;
+    var superArray = [].concat(this.state.data);
+    console.log(superArray);
     var todo = null;
     if (previousUserData != null) {
-      todo = previousUserData.map(item => (
-        <AnalyticsCard
-          id={item.id}
-          status={item.status}
-          location={item.location}
-          date={item.date}
-          expandHandler={this.expandHandler}
-        />
-      ));
-    } else {
-      todo = "No moles saved";
+      superArray = superArray.concat(previousUserData);
     }
+    todo = superArray.map(item => (
+      <AnalyticsCard
+        id={item.id}
+        status={item.status}
+        location={item.location}
+        date={item.date}
+        expandHandler={this.expandHandler}
+      />
+    ));
 
     console.log(todo);
     return (
@@ -47,5 +47,4 @@ class Analytics extends Component {
     );
   }
 }
-
 export default Analytics;

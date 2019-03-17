@@ -28,7 +28,25 @@ class SaveSelect extends Component {
   }
 
   handleSaveToEntry() {
-    console.log("saving to entry");
+    var previousUserData = JSON.parse(localStorage.getItem("Userdata"));
+    var dataArray = analyticsData;
+    var entries = [];
+    if (previousUserData != null) {
+      dataArray = dataArray.concat(previousUserData);
+    }
+    console.log(dataArray);
+    console.log(dataArray[0]["id"]);
+    console.log(this.state.id);
+    for (var i in dataArray) {
+      if (dataArray[i]["id"] == this.state.id) {
+        dataArray[i]["entries"].push(this.state.newEntry);
+      }
+    }
+    this.props.history.push({
+      pathname: "/Analytics",
+      search: "query=abc",
+      state: {}
+    });
   }
 
   render() {
@@ -36,20 +54,21 @@ class SaveSelect extends Component {
     console.log("Date:", date.getDate());
     console.log("Month:", date.getMonth() + 1);
     var previousUserData = JSON.parse(localStorage.getItem("Userdata"));
+    var analytics = analyticsData;
+    var superArray = [].concat(analytics);
     var todo = null;
     if (previousUserData != null) {
-      todo = previousUserData.map(item => (
-        <SaveSelectCard
-          id={item.id}
-          status={item.status}
-          loc={item.location}
-          date={item.date}
-          newEntry={this.state.newEntry}
-        />
-      ));
-    } else {
-      todo = "empty";
+      superArray.concat(previousUserData);
     }
+    todo = superArray.map(item => (
+      <SaveSelectCard
+        id={item.id}
+        status={item.status}
+        loc={item.location}
+        date={item.date}
+        newEntry={this.state.newEntry}
+      />
+    ));
     return (
       <div>
         <Header currentSpot={"Save Entry"} />
